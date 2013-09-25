@@ -13,7 +13,7 @@ class SymbolTableTest : public ::testing::Test {
 
   virtual void TearDown() { } 
 
-  ST<int, int> table_;
+  sedgewick::ST<int, int> table_;
 };
 
 
@@ -26,6 +26,9 @@ TEST_F(SymbolTableTest, putToEmptyTableChangesSize) {
   table_.put(1, 2);
   EXPECT_FALSE(table_.isEmpty()) << "Table should no longer be empty";
   EXPECT_EQ(1, table_.size()) << "Table size should be 1";
+
+  table_.put(3, 4);
+  EXPECT_EQ(2, table_.size()) << "Table size should be 2";
 }
 
 }  // namespace
