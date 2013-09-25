@@ -18,6 +18,9 @@ class ST {
   // iterator tbc.
 
  private:
+  // Locate key, returning index in keys_, or -1 if not found.
+  int rank(const K& key) const;
+
   // Disallow copying and assignment.
   ST(const ST&);
   ST& operator=(const ST&);
