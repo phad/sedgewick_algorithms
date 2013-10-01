@@ -78,8 +78,15 @@ point2d.o : $(USER_DIR)/point2d.cc $(USER_DIR)/point2d.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/point2d.cc
 
 point2d_test.o : $(USER_DIR)/point2d_test.cc \
-                     $(USER_DIR)/point2d.h $(GTEST_HEADERS)
+                 $(USER_DIR)/point2d.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/point2d_test.cc
 
-geometry_test : point2d.o point2d_test.o gtest_main.a
+interval1d.o : $(USER_DIR)/interval1d.cc $(USER_DIR)/interval1d.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/interval1d.cc
+
+interval1d_test.o : $(USER_DIR)/interval1d_test.cc \
+                    $(USER_DIR)/interval1d.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/interval1d_test.cc
+
+geometry_test : point2d.o point2d_test.o interval1d.o interval1d_test.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -pthread $^ -o $@
