@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "symbol_table.h"
 
+using sedgewick::ST;
+
 namespace {
 
 class SymbolTableTest : public ::testing::Test {
@@ -13,7 +15,7 @@ class SymbolTableTest : public ::testing::Test {
 
   virtual void TearDown() { } 
 
-  sedgewick::ST<int, int> table_;
+  ST<int, int> table_;
 };
 
 
@@ -41,5 +43,16 @@ TEST_F(SymbolTableTest, getRetrievesItemsInTable) {
   ASSERT_EQ(2, *table_.get(1)) << "Table should return item previously put";
 }
 
-}  // namespace
+TEST_F(SymbolTableTest, putBeyondCapacityGrowsTable) {
+  ST<int, int> table(2);
+  ASSERT_EQ(2, table.capacity()) << "Initial capacity should be that specified";
+  table.put(1, 2);
+  table.put(2, 3);
+  table.put(3, 4);
+  ASSERT_EQ(4, table.capacity()) << "Table should have grown to double initial capacity";
+  ASSERT_EQ(2, *table.get(1));
+  ASSERT_EQ(3, *table.get(2));
+  ASSERT_EQ(4, *table.get(3));
+}
 
+}  // namespace

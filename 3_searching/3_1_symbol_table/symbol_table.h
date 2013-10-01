@@ -7,6 +7,7 @@ template <typename K, typename V>
 class ST {
  public:
   ST();
+  explicit ST(int initial_capacity);
   virtual ~ST();
 
   void put(const K& key, const V& val);
@@ -15,11 +16,15 @@ class ST {
   bool contains(const K& key) const;
   bool isEmpty() const;
   int size() const;
+  int capacity() const;
+
   // iterator tbc.
 
  private:
   // Locate key, returning index in keys_, or -1 if not found.
   int rank(const K& key) const;
+  // Expand capacity.
+  void grow();
 
   // Disallow copying and assignment.
   ST(const ST&);
