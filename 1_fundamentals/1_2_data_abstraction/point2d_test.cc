@@ -1,24 +1,11 @@
 #include <cmath>
-#include <iostream>
 
 #include "gtest/gtest.h"
 #include "point2d.h"
 
 using sedgewick::Point2D;
-using namespace std;
 
 namespace {
-
-class Point2DTestr : public ::testing::Test {
- protected:
-  Point2DTestr() { }
-
-  virtual ~Point2DTestr() { }
-
-  virtual void SetUp() { }
-
-  virtual void TearDown() { } 
-};
 
 TEST(Point2DTest, constructorAndGetters) {
   Point2D p1(0.0, 0.0);
