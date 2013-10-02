@@ -2,6 +2,6 @@ language: cpp
 compiler:
   - gcc
   - clang
-# Change this to your needs
-#script: ./configure && make
+script: for d in `find . | grep Makefile`; do pushd `echo $d | sed 's/Makefile//'`; make; make test; popd; done
+
 
