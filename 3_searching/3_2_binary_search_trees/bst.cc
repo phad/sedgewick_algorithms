@@ -74,7 +74,7 @@ typename BST<K, V>::Node* BST<K, V>::put(Node* node, const K& key, V value) {
 
 template<typename K, typename V>
 std::ostream& operator<<(std::ostream& ostr, const BST<K, V>& bst) {
-  return bst.root_->op_l_chevr(ostr, 0);
+  return bst.root_->op_l_chevr(ostr, "" , false, true);
 }
 
 template<typename K, typename V>
@@ -88,25 +88,32 @@ BST<K, V>::Node::~Node() {
   delete right_;
 }
 
+// Tree output inspired by:
+// http://stackoverflow.com/questions/1649027/how-do-i-print-out-a-tree-structure
 template<typename K, typename V>
-std::ostream& BST<K, V>::Node::op_l_chevr(std::ostream& ostr, int depth) {
-  std::string indent;
-  for (int d = 0; d < depth; ++d) {
-    indent += ' ';
+std::ostream& BST<K, V>::Node::op_l_chevr(std::ostream& ostr,
+    std::string indent, bool isLeft, bool isLast) {
+  ostr << indent;
+  bool isRoot = indent.size() == 0;
+  if (isLast) {
+    ostr << "\\-";
+    indent += "  ";
+  } else {
+    ostr << "|-";
+    indent += "| ";
   }
-
-  ostr << indent << "key: " << key_;
-  ostr << " value: " << value_ << std::endl;
-
+  if (isRoot) {
+    ostr << "o-";
+  } else {
+    ostr << (isLeft ? "<-" : ">-");
+  }
+  ostr << key_ << "(" << value_ << ")" << endl;
   if (left_) {
-    ostr << indent << "left:" << std::endl;
-    left_->op_l_chevr(ostr, depth + 1);
+    left_->op_l_chevr(ostr, indent, true, (right_ == NULL));
   }
   if (right_) {
-    ostr << indent << "right:" << std::endl;
-    right_->op_l_chevr(ostr, depth + 1);
+    right_->op_l_chevr(ostr, indent, false, true);
   }
-
   return ostr;
 }
 

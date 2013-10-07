@@ -24,7 +24,7 @@ class BST {
     Node(K key, V value);
     ~Node();
 
-    std::ostream& op_l_chevr(std::ostream&, int);
+    std::ostream& op_l_chevr(std::ostream&, std::string, bool, bool);
 
     K key_;
     V value_;
@@ -39,7 +39,8 @@ class BST {
   const V* get(Node* node, const K& key) const;
   Node* put(Node* node, const K& key, V value);
 
-  friend std::ostream& operator<<(std::ostream&, const sedgewick::BST<K, V>&);
+  template<typename L, typename W>
+  friend std::ostream& operator<<(std::ostream&, const sedgewick::BST<L, W>&);
   Node* root_;
 };
 
